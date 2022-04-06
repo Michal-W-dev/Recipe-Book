@@ -1,0 +1,6 @@
+<form (submit)="onSubmit()">
+  <input [(ngModel)]="name" name="ingredient_name" #nameInput>
+  <input [(ngModel)]="amount" name="ingredient_amount" #amountInput>
+  <button type="submit">Add new ingredient</button>
+</form>
+<div *ngIf="alert">{{alert}}</div>
