@@ -1,1 +1,24 @@
-<p>recipe-details works!</p>
+<div *ngIf="!recipe" class="error">Not valid id</div>
+<div *ngIf="recipe">
+  <h1 class="title">{{recipe.name}}</h1>
+  <img [src]="recipe.image" width="100%" />
+  <div class="bottomContainer">
+    <p class="description">{{recipe.description}}</p>
+    <hr />
+    <div class="headerIngredients">
+      <h3>Ingredients:</h3>
+      <button class="btn-shopping-list" (click)="ingService.addIngredients(recipe.ingredients)">Add to shopping
+        list</button>
+    </div>
+    <ul>
+      <li *ngFor="let ingredient of recipe.ingredients">
+        <p>{{ingredient.name}} - {{ingredient.amount}}</p>
+      </li>
+    </ul>
+    <hr />
+    <div class="btnsContainer">
+      <button [routerLink]="['edit']">Edit</button>
+      <button>Delete</button>
+    </div>
+  </div>
+</div>

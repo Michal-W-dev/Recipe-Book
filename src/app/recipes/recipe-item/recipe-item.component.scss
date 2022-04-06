@@ -1,0 +1,32 @@
+a {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 2rem;
+  margin: 1rem 0;
+  border: 3px solid white;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 2px, 1px 1px 2px 1px black;
+  min-width: 400px;
+  text-decoration: none;
+  color:black;
+  &:active {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+img {
+  border-left: 3px solid white;
+}
+
+.textDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.active {
+  border: 3px solid rgb(219, 219, 219);
+}

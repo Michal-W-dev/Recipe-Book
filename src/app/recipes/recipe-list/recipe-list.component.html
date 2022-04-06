@@ -1,1 +1,5 @@
-<p>recipe-list works!</p>
+<div>
+  <button routerLink="/recipes/new">New recipe</button>
+  <app-recipe-item *ngFor="let recipe of recipeList; let i = index" [idx]="i" [recipe]="recipe">
+  </app-recipe-item>
+</div>

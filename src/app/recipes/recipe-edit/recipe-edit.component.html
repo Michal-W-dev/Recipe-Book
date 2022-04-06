@@ -1,0 +1,35 @@
+<div *ngIf="!recipe" class="error">Not valid id</div>
+<div *ngIf="recipe" class="formContainer">
+  <h1 class="title">{{isEdited ? 'Edit' : 'New'}} recipe</h1>
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class=" inputContainer">
+      <label>Dish Name</label>
+      <input ngModel="{{recipe.name}}" placeholder="Eneter Name" name="name" required>
+    </div>
+    <img [src]="recipe.image" width="100%" />
+    <div class="inputContainer">
+      <label>Image link</label>
+      <input name="image" placeholder="Eneter Image" ngModel="{{recipe.image}}" />
+    </div>
+    <div class="inputContainer">
+      <label for="">Description</label>
+      <textarea name="description" type="textarea" placeholder="Eneter Description"
+        ngModel="{{recipe.description}}"></textarea>
+    </div>
+    <hr />
+    <h3>Ingredients:</h3>
+    <div *ngFor="let ingredient of recipe.ingredients">
+      <div class="inputContainer">
+        <label>Name</label>
+        <input name="ing_name" placeholder="Eneter Name" ngModel="{{ingredient.name}}">
+      </div>
+      <div class="inputContainer">
+        <label>Amount</label>
+        <input name="ing_amount" placeholder="Eneter Amount" ngModel="{{ingredient.amount || ''}}" />
+      </div>
+      <hr />
+    </div>
+    <button type="submit">OK</button>
+  </form>
+  <p *ngIf="f.submitted && f.invalid" class="errorMsg">Form is invalid</p>
+</div>

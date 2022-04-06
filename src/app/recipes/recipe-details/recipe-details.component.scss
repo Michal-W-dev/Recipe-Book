@@ -2,4 +2,51 @@
   width: 50%;
   border: 1px solid black;
   margin: 1rem;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px black;
+  .description,
+  .title {
+    padding: 1rem 1.5rem;
+  }
+  img {
+    min-height: 20rem;
+  }
+  .bottomContainer {
+    margin: 0rem 1.5rem;
+  }
+  .btnsContainer {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    button {
+      padding: 0.6rem 2rem;
+      background-color: #222;
+      color: #eee;
+      border-radius: 5px;
+      min-width: 9rem;
+      border: 2px solid grey;
+      letter-spacing: 2px;
+    }
+  }
+  ul {
+    position: relative;
+  }
+  li {
+    list-style-type: none;
+    padding-left: 2rem;
+    padding-right: 5rem;
+  }
+  .headerIngredients {
+    display:flex;
+  }
+  .btn-shopping-list {
+    right: 0.5rem;
+    top: 0;
+    background-color: grey;
+    color:white;
+    padding: 0.5rem 1rem;
+    display:block;
+    margin-left: auto;
+  }
 }
+
