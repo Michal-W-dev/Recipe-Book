@@ -1,4 +1,30 @@
 :host {
   height: 5rem;
   background: grey;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 10%;
+}
+
+.linksWrapper {
+  margin-left: 3rem;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  height: 100%;
+  display: flex;
+  a {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    &.active {
+      color:aqua;
+    }
+    &:hover {
+      background-color: #333;
+    }
+  }
 }
