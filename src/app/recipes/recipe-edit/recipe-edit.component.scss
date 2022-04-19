@@ -1,7 +1,8 @@
 :host {
-  width: 50%;
+  flex: 1 700px;
+  height: 100%;
   border: 1px solid black;
-  margin: 1rem;
+  margin-left: 4rem;
   border-radius: 5px;
   box-shadow: 2px 2px 4px black;
   .title {
@@ -14,25 +15,115 @@
     margin: 0 -10px;
   }
   .formContainer {
-    margin: 1rem;
+    margin: 1rem 1rem 0 1rem;
+    h3,
+    h4 {
+      margin-top: 1rem;
+    }
     form {
+      .inputGroup {
+        padding: 0.5rem 1rem;
+        margin: 0rem -1rem;
+      }
+      .select {
+        background-color: rgba(0, 0, 0, .05);
+      }
       .inputContainer {
         display: flex;
-        margin: 0.7rem 0;
+        margin: .7rem 0;
       }
       label {
         display: inline-block;
-        width: 10rem;
+        width: 11rem;
       }
       input,
       textarea {
+        border-radius: 4px;
+        border: 1px solid grey;
         flex: 1;
         padding: 0.4rem 0.5rem;
         font-family: inherit;
         &.ng-touched.ng-invalid {
           border: 1px solid deeppink;
+          box-shadow: 0 0 1px rgb(255, 0, 183);
+          background: linear-gradient(45deg, white 97%, rgba(255, 0, 140, 0.225) 97%), white;
         }
       }
     }
+    .ingredientContainer {
+      display: flex;
+      .inputContainer:first-of-type {
+        width: 60%;
+      }
+      .inputContainer:last-of-type {
+        margin-left: 2rem;
+        max-width: 120px;
+        label {
+          width: 0;
+        }
+      }
+      input {
+        width: 100%;
+      }
+    }
+    .btns-container {
+      margin: 0.45rem 0;
+      button {
+        border: 1px solid grey;
+        padding: 0.3rem 1rem;
+        margin: 0.4rem 0.2rem;
+        box-shadow: 1px 1px 1px black, inset 0 0 1px white;
+        cursor: pointer;
+        animation: 0.15s btnAppear forwards ease-in;
+        &:first-of-type {
+          border-bottom-left-radius: 50px;
+          border-top-left-radius: 50px;
+        }
+        &:last-of-type {
+          border-bottom-right-radius: 50px;
+          border-top-right-radius: 50px;
+        }
+      }
+    }
+  }
+  hr {
+    margin-bottom: -7px;
+    padding-bottom: 1px;
+    box-shadow: inset 0 0 0 1px white;
+  }
+  img {
+    width: 30%;
+    display: block;
+    margin-left: auto;
+    border-radius: 6px;
+  }
+}
+
+@keyframes btnAppear {
+  from {
+    transform: scale(1, 0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  :host {
+    margin: 0 5rem;
+  }
+  .inputContainer {
+    flex-direction: column;
+    .spanLabelAmount {
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: 800px) {
+  :host {
+    margin: 0;
+    min-width: 348px;
+    height: auto;
+    flex: auto;
   }
 }

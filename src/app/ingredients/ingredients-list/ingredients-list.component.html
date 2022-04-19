@@ -1,10 +1,9 @@
-<!-- <app-ingredient-edit (addIngredient)="addIngredient($event)"></app-ingredient-edit> -->
 <app-ingredient-edit></app-ingredient-edit>
-<div *ngFor="let item of ingredients" class="ingredient">
-  <p>
-    {{item.name | titlecase}}
-  </p>
-  <p>
-    ({{item.amount}})
-  </p>
+<div class="ingredientsContainer">
+  <div *ngFor="let item of ingredients; let i = index;" (click)="editItem(i)">
+    <div [ngClass]="{selected: selectedIng === i}" class="ingredient">
+      <p> {{item.name | titlecase}} </p>
+      <p> ({{item.amount}}) </p>
+    </div>
+  </div>
 </div>

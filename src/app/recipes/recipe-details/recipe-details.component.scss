@@ -1,6 +1,7 @@
 :host {
-  width: 50%;
-  border: 1px solid black;
+  flex: 1 550px;
+  min-width: 310px;
+  border: 2px solid rgb(78, 78, 78);
   margin: 1rem;
   border-radius: 5px;
   box-shadow: 2px 2px 4px black;
@@ -37,16 +38,28 @@
     padding-right: 5rem;
   }
   .headerIngredients {
-    display:flex;
+    display: flex;
   }
   .btn-shopping-list {
     right: 0.5rem;
     top: 0;
     background-color: grey;
-    color:white;
+    color: white;
     padding: 0.5rem 1rem;
-    display:block;
+    display: block;
     margin-left: auto;
   }
 }
 
+@media screen and (max-width: 500px) {
+  :host {
+    margin: 0;
+    flex: auto;
+    .bottomContainer,
+    .btnsContainer,
+    .description {
+      padding: 0.5rem;
+      margin: 0;
+    }
+  }
+}

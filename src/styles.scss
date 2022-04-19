@@ -19,9 +19,18 @@ body {
   background-color: lavender;
 }
 
+input,
+textarea,
+button {
+  font-size: inherit;
+}
+button {
+  cursor: pointer;
+}
+
 .error {
   background-color: deeppink;
-  color:white;
+  color: white;
   text-align: center;
   padding: 1rem 0;
   letter-spacing: 1px;

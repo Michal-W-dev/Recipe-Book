@@ -1,0 +1,42 @@
+:host {
+  form {
+    margin: 1rem auto;
+    width: fit-content;
+  }
+  .btnsContainer,
+  .inputsContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+  }
+  input {
+    padding: 0.3rem 1.5rem;
+    background-color: grey;
+    color: white;
+    box-shadow: inset 1px 1px 2px black, 0 0 0 2px rgb(84, 84, 84);
+    border: 1px solid white;
+    border-radius: 6px;
+    margin: 0.4rem;
+    &::placeholder {
+      color: white;
+      transition: 1s cubic-bezier(0.1, 0.7, 1.0, 0.1);
+    }
+    &:focus::placeholder {
+      transform: translate(100px);
+    }
+  }
+  button {
+    border: 1px solid grey;
+    padding: 0.3rem 3rem;
+    margin: 0.4rem 0.2rem;
+    box-shadow: 1px 1px 1px black, inset 0 0 1px white;
+    &:first-of-type {
+      border-bottom-left-radius: 50px;
+      border-top-left-radius: 50px;
+    }
+    &:last-of-type {
+      border-bottom-right-radius: 50px;
+      border-top-right-radius: 50px;
+    }
+  }
+}

@@ -1,15 +1,15 @@
 :host {
-  min-width: 50%;
-  max-width: 600px;
-  margin: 1rem;
+  max-width: 650px;
+  margin: 1rem auto;
   button {
     padding: 0.5rem 3rem;
     background-color: rgb(106, 106, 106);
-    color:white;
+    color: white;
     letter-spacing: 2px;
     font-size: 1.5rem;
     border-radius: 10px;
     border: 1px solid white;
     box-shadow: 1px 1px 2px 0px black;
+    cursor: pointer;
   }
 }

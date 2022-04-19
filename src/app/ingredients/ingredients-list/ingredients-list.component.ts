@@ -10,14 +10,28 @@ import { IngredientsService } from '../ingredients.service';
 })
 export class IngredientsListComponent implements OnInit {
   ingredients: Ingredient[]
+  newIngredients: Ingredient[]
   private ingSub: Subscription;
-  constructor(private ingService: IngredientsService) {
+  private selSub: Subscription;
+  selectedIng = -1;
 
+  constructor(private ingService: IngredientsService) {
   }
 
   ngOnInit(): void {
     this.ingSub = this.ingService.ingsEmitter.subscribe(ingredients => this.ingredients = ingredients)
     this.ingService.getIngredients()
+    this.newIngredients = this.ingService.newIngredients
+    this.selSub = this.ingService.selectedIng.subscribe(selectedIng => this.selectedIng = selectedIng)
   }
-  ngOnDestroy() { this.ingSub.unsubscribe() }
+  ngOnDestroy() {
+    this.ingSub.unsubscribe()
+    // this.selSub.unsubscribe()
+  }
+
+  editItem(idx: number) {
+    this.ingService.selectedIng.next(idx)
+    this.selectedIng = idx;
+  }
+
 }

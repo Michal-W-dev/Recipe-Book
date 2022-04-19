@@ -4,11 +4,11 @@
   <img [src]="recipe.image" width="100%" />
   <div class="bottomContainer">
     <p class="description">{{recipe.description}}</p>
-    <hr />
-    <div class="headerIngredients">
+    <hr *ngIf="recipe.ingredients.length" />
+    <div *ngIf="recipe.ingredients.length" class="headerIngredients">
       <h3>Ingredients:</h3>
-      <button class="btn-shopping-list" (click)="ingService.addIngredients(recipe.ingredients)">Add to shopping
-        list</button>
+      <button class="btn-shopping-list" (click)="addToShoppingList(recipe.ingredients)"
+        [disabled]="!recipe.ingredients.length">Add to shopping list</button>
     </div>
     <ul>
       <li *ngFor="let ingredient of recipe.ingredients">
@@ -18,7 +18,7 @@
     <hr />
     <div class="btnsContainer">
       <button [routerLink]="['edit']">Edit</button>
-      <button>Delete</button>
+      <button (click)="onDelete()">Delete</button>
     </div>
   </div>
 </div>
