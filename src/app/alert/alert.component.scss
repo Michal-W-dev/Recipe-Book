@@ -1,0 +1,22 @@
+.alert {
+  position: absolute;
+  min-width: 300px;
+  border: 2px solid white;
+  bottom: 10rem;
+  left: -100%;
+  background-color: grey;
+  padding: 0.3rem 2rem;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 2px 2px 4px black;
+  animation: slideRight 3s;
+}
+
+@keyframes slideRight {
+  20% {
+    left: 5rem
+  }
+  80% {
+    left: 5rem
+  }
+}
