@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Ingredient } from 'src/shared-models/ingredients';
-import { IngredientsService } from '../ingredients.service';
+import { Ingredient } from 'src/app/models/ingredients';
+import { IngredientsService } from '../../services/ingredients.service';
 
 @Component({
   selector: 'app-ingredients-list',

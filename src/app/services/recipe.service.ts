@@ -1,8 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Ingredient } from 'src/shared-models/ingredients';
+import { Ingredient } from 'src/app/models/ingredients';
 import { AlertService } from './alert.service';
-import { Recipe } from './recipes/recipe.model';
+import { Recipe } from '../models/recipe.model';
 
 @Injectable()
 export class RecipeService implements OnInit {
@@ -41,4 +40,3 @@ export class RecipeService implements OnInit {
 
   // changeRecipe(index: number) { this.recipe.next(this.recipes[index]) }
 }
-

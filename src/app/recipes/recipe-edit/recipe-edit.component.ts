@@ -2,10 +2,10 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, Vie
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AlertService } from 'src/app/alert.service';
-import { RecipeService } from 'src/app/recipe.service';
-import { Ingredient } from 'src/shared-models/ingredients';
-import { Recipe } from '../recipe.model';
+import { AlertService } from 'src/app/services/alert.service';
+import { RecipeService } from 'src/app/services/recipe.service';
+import { Ingredient } from 'src/app/models/ingredients';
+import { Recipe } from '../../models/recipe.model';
 
 @Component({
   selector: 'app-recipe-edit',

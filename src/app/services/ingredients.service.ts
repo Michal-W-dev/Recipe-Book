@@ -1,8 +1,8 @@
 import { TitleCasePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Ingredient } from 'src/shared-models/ingredients';
-import { AlertService } from '../alert.service';
+import { Ingredient } from 'src/app/models/ingredients';
+import { AlertService } from './alert.service';
 
 @Injectable({ providedIn: 'root' })
 export class IngredientsService {
