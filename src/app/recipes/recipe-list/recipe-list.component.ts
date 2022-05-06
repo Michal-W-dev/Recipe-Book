@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { FbDataService } from 'src/app/services/fb-data.service';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { Recipe } from '../../models/recipe.model';
 
@@ -7,13 +9,21 @@ import { Recipe } from '../../models/recipe.model';
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.scss']
 })
-export class RecipeListComponent implements OnInit {
-  recipeList: Recipe[]
-  recipes: Recipe[]
+export class RecipeListComponent implements OnInit, OnDestroy {
+  recipeList: Recipe[] = [];
+  subRecipe: Subscription;
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private recipeService: RecipeService, private db: FbDataService) {
+
+  }
 
   ngOnInit(): void {
-    this.recipeList = this.recipeService.recipes
+    this.subRecipe = this.recipeService.recipesChanged.subscribe(recipes => {
+      this.recipeList = recipes
+    })
+    this.recipeList = this.recipeService.getRecipes;
+  }
+  ngOnDestroy() {
+    this.subRecipe.unsubscribe();
   }
 }

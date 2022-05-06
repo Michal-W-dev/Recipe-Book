@@ -26,7 +26,7 @@ export class IngredientsListComponent implements OnInit {
   }
   ngOnDestroy() {
     this.ingSub.unsubscribe()
-    // this.selSub.unsubscribe()
+    this.selSub.unsubscribe()
   }
 
   editItem(idx: number) {
