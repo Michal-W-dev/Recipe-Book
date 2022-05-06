@@ -24,8 +24,8 @@ export class FbDataService {
           ingredients: recipe.ingredients || []
         })
         )),
-        tap(recipes => { console.log('tap', recipes) })
+        tap(recipes => this.recipeService.setRecipes(recipes))
       )
-      .subscribe({ next: recipes => this.recipeService.setRecipes(recipes) })
+    // .subscribe({ next: recipes => this.recipeService.setRecipes(recipes) })
   }
 }

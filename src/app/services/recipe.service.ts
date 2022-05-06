@@ -21,7 +21,6 @@ export class RecipeService {
 
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
-    console.log(1, this.recipes)
     this.recipesChanged.next(this.recipes.slice());
   }
 
