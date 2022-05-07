@@ -5,4 +5,5 @@ export interface IAuthResponse {
   refreshToken: string;
   expiresIn: string;
   localId: string;
+  register?: boolean;
 }

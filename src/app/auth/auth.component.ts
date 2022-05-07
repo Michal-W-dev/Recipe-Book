@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, NgForm, NgModel } from '@angular/forms';
+import { NgForm, NgModel } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { IAuthResponse } from '../models/auth.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -12,7 +15,7 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   error = ''
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -24,18 +27,19 @@ export class AuthComponent implements OnInit {
   onSubmit(form: NgForm) {
     if (form.invalid) return
     this.isLoading = true;
-
     const { email, password } = form.value;
-    if (this.isLogin) {
-      console.log('Logging is not implemented yet');
 
-    } else {
-      this.auth.signUp(email, password).subscribe({
-        next: res => console.log(res),
-        error: err => this.error = err
-      }).add(() => this.isLoading = false)
-    }
-    // form.reset()
+    let authObs$: Observable<IAuthResponse>
+
+    if (this.isLogin) authObs$ = this.auth.login(email, password)
+    else authObs$ = this.auth.signUp(email, password)
+
+    authObs$.subscribe({
+      next: res => { console.log(res); this.router.navigateByUrl('/recipes') },
+      error: err => this.error = err
+    }).add(() => this.isLoading = false)
+
+    form.reset()
   }
 
   errorMinLength(control: NgModel) {
