@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { FooterComponent } from './layout/footer/footer.component';
 import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
 import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.component';
 import { RecipesComponent } from './recipes/recipes.component';
@@ -12,10 +12,11 @@ import { IngredientsListComponent } from './ingredients/ingredients-list/ingredi
 import { IngredientEditComponent } from './ingredients/ingredient-edit/ingredient-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
-import { AlertComponent } from './alert/alert.component';
+import { AlertComponent } from './shared/alert/alert.component';
 import { TitleCasePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthComponent } from './auth/auth.component';
+import { LoaderComponent } from './shared/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AuthComponent } from './auth/auth.component';
     IngredientEditComponent,
     RecipeEditComponent,
     AlertComponent,
-    AuthComponent
+    AuthComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

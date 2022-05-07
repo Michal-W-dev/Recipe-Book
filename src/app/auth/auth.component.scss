@@ -52,9 +52,15 @@
       }
     }
 
-    .btns {
-      margin-top: 7rem;
+    .errorsPlaceholder {
+      min-height: 7rem;
+      padding-top: 1rem;
+      font-style: italic;
+      color: deeppink;
+      text-shadow: 1px 0 rgb(220, 0, 117);
+    }
 
+    .btns {
       button {
         padding: 0.5rem 1rem;
         min-width: 9rem;
