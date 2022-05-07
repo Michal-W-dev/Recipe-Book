@@ -10,7 +10,7 @@
   }
 
   a {
-    padding: 12px 20px;
+    padding: 1.2rem 1.3rem;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -23,13 +23,42 @@
       background-color: #333;
     }
   }
+
+  .linksWrapper {
+    margin-left: 3rem;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    height: 100%;
+    display: flex;
+
+  }
+
+  .rightLinksContainer {
+    a {
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      width: 10rem;
+    }
+  }
+
 }
 
-.linksWrapper {
-  margin-left: 3rem;
-  border-left: 2px solid white;
-  border-right: 2px solid white;
-  height: 100%;
-  display: flex;
-
+@media screen and (max-width: 950px) {
+  :host {
+    flex-direction: column;
+    min-width: 310px;
+    h1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5rem;
+    }
+    .rightLinksContainer {
+      a {
+        width: auto;
+        text-align: auto;
+      }
+    }
+  }
 }

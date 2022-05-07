@@ -1,0 +1,26 @@
+<div class="formContainer">
+  <div class="bg">
+    <h1>{{isLogin ? 'Login' : 'Register'}}</h1>
+    <div class="empty-space"></div>
+    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+      <div class="form-group">
+        <label for="email">E-Mail</label>
+        <input type="email" id="email" ngModel name="email" required email placeholder="Enter mail" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" ngModel name="password" required minlength="3"
+          placeholder="Enter password" />
+      </div>
+      <div class="btns">
+        <button type="submit" [disabled]="!authForm.valid" [title]="!authForm.valid && 'Form is not valid.'">
+          {{ isLogin ? 'Login' : 'Sign Up' }}
+        </button>
+        |
+        <button type="button" (click)="onSwitchMode()">
+          Switch to {{ isLogin ? 'Sign Up' : 'Login' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -15,6 +15,7 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 import { AlertComponent } from './alert/alert.component';
 import { TitleCasePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     IngredientsListComponent,
     IngredientEditComponent,
     RecipeEditComponent,
-    AlertComponent
+    AlertComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
