@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FbDataService } from '../services/fb-data.service';
+import { FbDataService } from '../../services/fb-data.service';
 
 @Component({
   selector: 'app-header',
