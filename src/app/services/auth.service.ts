@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private tokenExpTimer: ReturnType<typeof setTimeout> | null;
   user = new BehaviorSubject<User | null>(null);
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -28,9 +29,32 @@ export class AuthService {
       )))
   }
 
+  autoLogin() {
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}')
+    if (!userData) return
+    const { email, id, _token, _tokenExpirationDate } = userData;
+    const loadedUser = new User(email, id, _token, new Date(_tokenExpirationDate))
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+
+      const tokenExpiration = new Date(userData._tokenExpirationDate).getTime()
+      const currentTime = new Date().getTime()
+      const expirationDuration = (tokenExpiration - currentTime) / 1000
+      this.autoLogout(expirationDuration)
+    }
+  }
+
   logout() {
     this.user.next(null);
-    this.router.navigateByUrl('/auth')
+    this.router.navigateByUrl('/auth');
+    localStorage.removeItem('userData')
+    if (this.tokenExpTimer) clearTimeout(this.tokenExpTimer);
+    this.tokenExpTimer = null;
+  }
+
+  autoLogout(expirationSeconds: number) {
+    const expirationMs = expirationSeconds * 1000
+    this.tokenExpTimer = setTimeout(() => this.logout(), expirationMs)
   }
 
   private handleError(errRes: HttpErrorResponse) {
@@ -51,6 +75,8 @@ export class AuthService {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, userId, token, expirationDate);
     this.user.next(user);
+    this.autoLogout(expiresIn)
+    localStorage.setItem('userData', JSON.stringify(user))
   }
 
 }
