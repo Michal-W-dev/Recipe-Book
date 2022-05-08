@@ -10,6 +10,10 @@
   color: white;
   box-shadow: 2px 2px 4px black;
   animation: slideRight 3s;
+  p {
+    font-size: 1.8rem;
+    font-style: italic;
+  }
 }
 
 @keyframes slideRight {

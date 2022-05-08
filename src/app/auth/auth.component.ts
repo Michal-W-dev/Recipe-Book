@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { delay, interval, last, map, Observable, switchMap, take, tap, timer } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { IAuthResponse } from '../models/auth.model';
 import { Router } from '@angular/router';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-auth',
@@ -14,8 +15,9 @@ export class AuthComponent implements OnInit {
   isLogin = true;
   isLoading = false;
   error = ''
+  user = { email: '', password: '' }
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private router: Router, private alert: AlertService) { }
 
   ngOnInit(): void {
   }
@@ -24,23 +26,43 @@ export class AuthComponent implements OnInit {
     this.isLogin = !this.isLogin
   }
 
-  onSubmit(form: NgForm) {
-    if (form.invalid) return
-    this.isLoading = true;
-    const { email, password } = form.value;
+  onSubmit(form: NgForm | 'login-guest') {
+    if (form !== 'login-guest' && form.invalid) return
 
     let authObs$: Observable<IAuthResponse>
+    let email: string, password: string;
 
-    if (this.isLogin) authObs$ = this.auth.login(email, password)
-    else authObs$ = this.auth.signUp(email, password)
+    if (form === 'login-guest') {
+      [email, password] = ['guest@guest.pl', '321321']
+
+      authObs$ = interval(35).pipe(take(email.length), tap(i => this.user.email += email[i]), switchMap(() => (
+        timer(100, 40).pipe(take(password.length), tap(i => this.user.password += password[i]), delay(300)))
+      ), switchMap(() => this.auth.login(email, password)))
+    } else {
+      [email, password] = [form.value.email, form.value.password]
+
+      if (this.isLogin) authObs$ = this.auth.login(email, password)
+      else authObs$ = this.auth.signUp(email, password)
+    }
+
+    this.isLoading = true;
 
     authObs$.subscribe({
-      next: res => { console.log(res); this.router.navigateByUrl('/recipes') },
-      error: err => this.error = err
-    }).add(() => this.isLoading = false)
-
-    form.reset()
+      next: res => {
+        this.router.navigateByUrl('/recipes')
+        const name = email.split('@')[0]
+        this.alert.showAlert(`Welcome ${name} !`, 'success')
+      },
+      error: err => {
+        this.error = err
+        this.alert.showAlert('Something went wrong !', 'danger')
+      }
+    }).add(() => {
+      this.isLoading = false
+      this.user = { email: '', password: '' }
+    })
   }
+
 
   errorMinLength(control: NgModel) {
     const controlError = control.errors?.['minlength']
