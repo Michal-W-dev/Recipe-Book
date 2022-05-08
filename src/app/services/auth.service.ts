@@ -2,27 +2,36 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IAuthResponse } from '../models/auth.model';
 import { environment } from 'src/environments/environment'
-import { catchError, Subject, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { User } from '../models/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  user = new Subject<User>();
+  user = new BehaviorSubject<User | null>(null);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   signUp(email: string, password: string) {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`
     return this.http.post<IAuthResponse>(url, { email, password, returnSecureToken: true })
-      .pipe(catchError(this.handleError))
+      .pipe(catchError(this.handleError), tap(res => (
+        this.handleAuthentication(res.email, res.localId, res.idToken, +res.expiresIn)
+      )))
   }
 
   login(email: string, password: string) {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`
     return this.http.post<IAuthResponse>(url, { email, password, returnSecureToken: true })
-      .pipe(catchError(this.handleError))
+      .pipe(catchError(this.handleError), tap(res => (
+        this.handleAuthentication(res.email, res.localId, res.idToken, +res.expiresIn)
+      )))
   }
 
+  logout() {
+    this.user.next(null);
+    this.router.navigateByUrl('/auth')
+  }
 
   private handleError(errRes: HttpErrorResponse) {
     const fbError = errRes.error?.error?.message
@@ -37,5 +46,11 @@ export class AuthService {
     return throwError(() => new Error(errMsg))
   }
 
+  private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
+    // Set fix (expirationDate), on (login / register)
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const user = new User(email, userId, token, expirationDate);
+    this.user.next(user);
+  }
 
 }

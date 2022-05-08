@@ -6,7 +6,12 @@
   </div>
 </div>
 <div class="rightLinksContainer">
-  <a (click)='onSaveData()'>SAVE recipes</a>
-  <a (click)='onFetchData()'>FETCH recipes</a>
-  <a routerLink="/auth" routerLinkActive="active">LOGIN</a>
+  <a *ngIf="recipeService.recipes.length" (click)='onSaveData()'>SAVE recipes</a>
+  <a *ngIf="isAuthenticated" (click)='onFetchData()'>FETCH recipes</a>
+  <a *ngIf="!isAuthenticated" routerLink="/auth" routerLinkActive="active">
+    <span class="material-icons" style="margin-right: 10px;">support_agent</span> LOGIN
+  </a>
+  <a *ngIf="isAuthenticated" (click)='onLogout()'>
+    <span class="material-icons" style="margin-right: 10px;">logout</span> LOGOUT
+  </a>
 </div>

@@ -4,6 +4,7 @@ import { RecipeService } from './recipe.service';
 import { Recipe } from '../models/recipe.model';
 import { map, tap } from 'rxjs';
 
+
 @Injectable({ providedIn: 'root' })
 export class FbDataService {
   private url = 'https://recipe-12-default-rtdb.europe-west1.firebasedatabase.app/'
@@ -17,11 +18,11 @@ export class FbDataService {
   }
 
   fetchRecipes() {
+    // const token = this.auth.user.value?.token
     return this.http.get<Recipe[]>(`${this.url}/recipes.json`)
       .pipe(
         map(recipes => recipes.map(recipe => ({
-          ...recipe,
-          ingredients: recipe.ingredients || []
+          ...recipe, ingredients: recipe.ingredients || []
         })
         )),
         tap(recipes => this.recipeService.setRecipes(recipes))

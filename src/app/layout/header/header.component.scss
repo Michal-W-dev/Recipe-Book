@@ -38,13 +38,13 @@
       display: flex;
       text-align: center;
       justify-content: center;
-      width: 10rem;
+      width: 12rem;
     }
   }
 
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 970px) {
   :host {
     flex-direction: column;
     min-width: 310px;
