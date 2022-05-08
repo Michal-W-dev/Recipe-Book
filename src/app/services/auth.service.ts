@@ -5,13 +5,14 @@ import { environment } from 'src/environments/environment'
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
+import { AlertService } from './alert.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private tokenExpTimer: ReturnType<typeof setTimeout> | null;
   user = new BehaviorSubject<User | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private alert: AlertService) { }
 
   signUp(email: string, password: string) {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.apiKey}`
@@ -45,16 +46,24 @@ export class AuthService {
   }
 
   logout() {
+    const name = this.user.value?.email.split('@')[0]
+
     this.user.next(null);
     this.router.navigateByUrl('/auth');
     localStorage.removeItem('userData')
     if (this.tokenExpTimer) clearTimeout(this.tokenExpTimer);
     this.tokenExpTimer = null;
+
+    this.alert.showAlert(`Goodbye ${name} !`, 'success');
   }
 
   autoLogout(expirationSeconds: number) {
     const expirationMs = expirationSeconds * 1000
-    this.tokenExpTimer = setTimeout(() => this.logout(), expirationMs)
+
+    this.tokenExpTimer = setTimeout(() => {
+      this.logout();
+      setTimeout(() => this.alert.showAlert('Token has expired, please log in again!', 'danger'))
+    }, expirationMs)
   }
 
   private handleError(errRes: HttpErrorResponse) {

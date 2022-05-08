@@ -1,13 +1,15 @@
 <div>
   <h1>Recipe Book</h1>
   <div class="linksWrapper">
-    <a routerLink="/recipes" routerLinkActive="active">Recipes</a>
+    <a *ngIf="isAuthenticated" routerLink="/recipes" routerLinkActive="active">Recipes</a>
     <a routerLink="/shopping-list" routerLinkActive="active">Shopping list</a>
   </div>
 </div>
 <div class="rightLinksContainer">
-  <a *ngIf="recipeService.recipes.length" (click)='onSaveData()'>SAVE recipes</a>
-  <a *ngIf="isAuthenticated" (click)='onFetchData()'>FETCH recipes</a>
+  <ng-container *ngIf="isAuthenticated">
+    <a *ngIf="recipeService.recipes.length" (click)='onSaveData()'>SAVE recipes</a>
+    <a (click)='onFetchData()'>FETCH recipes</a>
+  </ng-container>
   <a *ngIf="!isAuthenticated" routerLink="/auth" routerLinkActive="active">
     <span class="material-icons" style="margin-right: 10px;">support_agent</span> LOGIN
   </a>
