@@ -4,45 +4,29 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
-import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
-import { RecipeDetailsComponent } from './recipes/recipe-details/recipe-details.component';
-import { RecipesComponent } from './recipes/recipes.component';
-import { RecipeItemComponent } from './recipes/recipe-item/recipe-item.component';
-import { IngredientsListComponent } from './ingredients/ingredients-list/ingredients-list.component';
-import { IngredientEditComponent } from './ingredients/ingredient-edit/ingredient-edit.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
-import { AlertComponent } from './shared/alert/alert.component';
-import { TitleCasePipe } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthComponent } from './auth/auth.component';
-import { LoaderComponent } from './shared/loader/loader.component';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { HttpClientModule } from '@angular/common/http';
+import { RecipesModule } from './recipes/recipes.module';
+import { IngredientsModule } from './ingredients/ingredients.module';
+import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    RecipeListComponent,
-    RecipeDetailsComponent,
-    RecipesComponent,
-    RecipeItemComponent,
-    IngredientsListComponent,
-    IngredientEditComponent,
-    RecipeEditComponent,
-    AlertComponent,
-    AuthComponent,
-    LoaderComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
+    RecipesModule,
+    IngredientsModule,
+    SharedModule,
+    CoreModule,
+    AuthModule
   ],
-  providers: [TitleCasePipe, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

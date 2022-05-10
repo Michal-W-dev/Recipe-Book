@@ -13,7 +13,7 @@ export class AlertService {
     const cssBorder = `2px solid ${isBorder('success') ? 'lime' : isBorder('danger') ? 'deeppink' : 'white'}`
 
     this.alertEmitter.next({ show: true, msg, cssBorder });
-    setTimeout(() => this.alertEmitter.next({ show: false, msg: '', cssBorder }), 3000)
+    setTimeout(() => this.alertEmitter.next({ show: false, msg: '', cssBorder }), 3500)
   }
 
 }

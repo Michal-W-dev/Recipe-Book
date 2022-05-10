@@ -1,13 +1,13 @@
 :host {
   form {
-    margin: 1rem auto;
+    margin: 2rem auto;
     width: fit-content;
   }
   .btnsContainer,
   .inputsContainer {
     display: flex;
     justify-content: space-between;
-    margin: 0.5rem 0;
+    margin: 0.9rem 0;
   }
   input {
     padding: 0.3rem 1.5rem;
@@ -22,7 +22,7 @@
       transition: 1s cubic-bezier(0.1, 0.7, 1.0, 0.1);
     }
     &:focus::placeholder {
-      transform: translate(100px);
+      transform: translate(120px);
     }
   }
   button {

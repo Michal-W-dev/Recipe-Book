@@ -5,17 +5,35 @@
   background: grey;
   color: white;
   padding: 0 10%;
+  font-size: 1.66rem;
+  position: relative;
+  text-shadow: 1px 1px 1px black;
+  box-shadow: 1px 2px 0px 2px white, 2px 2px 1px 4px black;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    height: 3px;
+    width: 100%;
+    background: rgb(221, 221, 221);
+    background: linear-gradient(120deg, rgb(231, 231, 231), rgb(207, 206, 206), rgb(231, 231, 231));
+  }
+  h1 {
+    display: flex;
+    align-items: center;
+  }
   &>div {
     display: flex;
   }
-
   a {
-    padding: 1.2rem 1.3rem;
+    padding: 1.5rem 1.3rem;
     display: flex;
     align-items: center;
     cursor: pointer;
     text-decoration: none;
     color: white;
+
     &.active {
       color: aqua;
     }
@@ -39,6 +57,8 @@
       text-align: center;
       justify-content: center;
       width: 12rem;
+      padding: 0.35rem 1.3rem;
+      // padding: 100%;
     }
   }
 

@@ -1,14 +1,14 @@
 :host {
-  font-size: 1.8rem;
+  font-size: 1.81rem;
   .ingredientsContainer {
-    margin: 1rem auto;
-    max-width: 27rem;
+    margin: 3.5rem auto;
+    max-width: 29rem;
   }
   .ingredient {
     position: relative;
     display: flex;
     justify-content: space-between;
-    padding: 0.2rem 1rem;
+    padding: 0.4rem 2rem;
     margin: 0.5rem;
     border: 1px solid grey;
     box-shadow: 1px 1px 1px black, inset 0 0 2px white;
