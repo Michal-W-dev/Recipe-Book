@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
-import { delay, interval, last, map, Observable, switchMap, take, tap, timer } from 'rxjs';
+import { delay, interval, last, Observable, switchMap, take, tap, timer } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { IAuthResponse } from '../models/auth.model';
 import { Router } from '@angular/router';
@@ -36,7 +36,7 @@ export class AuthComponent implements OnInit {
       [email, password] = ['guest@guest.pl', '321321']
 
       authObs$ = interval(35).pipe(take(email.length), tap(i => this.user.email += email[i]), switchMap(() => (
-        timer(100, 40).pipe(take(password.length), tap(i => this.user.password += password[i]), delay(300)))
+        timer(100, 40).pipe(take(password.length), tap(i => this.user.password += password[i]), last(), delay(300)))
       ), switchMap(() => this.auth.login(email, password)))
     } else {
       [email, password] = [form.value.email, form.value.password]
