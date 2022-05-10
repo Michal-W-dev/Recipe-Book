@@ -4,7 +4,6 @@ import { LoaderComponent } from './loader/loader.component';
 import { AlertComponent } from './alert/alert.component';
 
 
-
 @NgModule({
   declarations: [
     LoaderComponent,

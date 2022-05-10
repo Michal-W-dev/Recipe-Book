@@ -6,8 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
-  { path: 'shopping-list', component: IngredientsListComponent },
-  { path: 'shopping-list/:name/:amount', component: IngredientsListComponent },
+  { path: '', component: IngredientsListComponent },
+  { path: ':name/:amount', component: IngredientsListComponent },
 ];
 
 @NgModule({

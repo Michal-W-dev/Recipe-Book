@@ -5,8 +5,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 @NgModule({
-  declarations: [],
-  imports: [],
   providers: [
     TitleCasePipe,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

@@ -11,7 +11,7 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree {
     const isAuth = !!this.auth.user.value
     if (isAuth) return isAuth;
-    this.alert.showAlert('Log in to access this url!', 'danger')
+    if (state.url !== '/recipes') this.alert.showAlert('Log in to access this url!', 'danger')
     return this.router.createUrlTree(['/auth'])
   }
 }
