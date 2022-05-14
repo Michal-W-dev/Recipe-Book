@@ -97,6 +97,14 @@
     margin-left: auto;
     border-radius: 6px;
   }
+  .loadImageBtn {
+    display: block;
+    margin: -3px 1px 3px auto;
+    padding: 2px 5px;
+    border-radius: 2px;
+    border: 1px solid grey;
+    box-shadow: 1px 1px 1px black;
+  }
 }
 
 @keyframes btnAppear {

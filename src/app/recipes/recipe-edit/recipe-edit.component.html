@@ -17,7 +17,8 @@
         <label for="dishImage">Image</label>
         <input formControlName="image" placeholder="Eneter Image Url" id="dishImage" #img>
       </div>
-      <img [src]="img.value">
+      <button type="button" *ngIf="!isEdited" class="loadImageBtn" (click)="loadImage()">Load random image</button>
+      <img class="mini-image" [src]="img.value">
       <!-- <p *ngIf="recipeForm.get('recipeGroup.description')?.touched && recipeForm.get('recipeGroup')?.invalid"> My msg </p> -->
     </div>
     <hr />

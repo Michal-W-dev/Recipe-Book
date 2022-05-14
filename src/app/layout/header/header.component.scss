@@ -1,3 +1,5 @@
+$height: 6rem;
+
 :host {
   display: flex;
   justify-content: space-between;
@@ -9,6 +11,8 @@
   position: relative;
   text-shadow: 1px 1px 1px black;
   box-shadow: 1px 2px 0px 2px white, 2px 2px 1px 4px black;
+  height: $height;
+  position: relative;
   &::after {
     content: '';
     position: absolute;
@@ -27,7 +31,8 @@
     display: flex;
   }
   a {
-    padding: 1.5rem 1.3rem;
+    height: $height;
+    padding: 1rem 1.3rem;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -57,8 +62,6 @@
       text-align: center;
       justify-content: center;
       width: 12rem;
-      padding: 0.35rem 1.3rem;
-      // padding: 100%;
     }
   }
 
@@ -68,6 +71,7 @@
   :host {
     flex-direction: column;
     min-width: 310px;
+    height: auto;
     h1 {
       display: flex;
       justify-content: center;

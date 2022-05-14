@@ -125,4 +125,10 @@ export class RecipeEditComponent implements OnInit, AfterViewInit, OnDestroy {
   // keysToArray(obj: Ingredient) { return Object.keys(obj) }
 
   onSelectGroup(id: number) { this.selectedIngGroupIdx = id }
+
+  loadImage() {
+    const images = ['https://unsplash.com/photos/_3dTLrMwiW8/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjQ3ODg5NjQw&force=true&w=480', 'https://unsplash.com/photos/G7eI_KNp7iw/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjQ3OTU1Mzcx&force=true&w=480']
+    const randomIdx = Math.floor(Math.random() * images.length)
+    this.recipeForm.get('recipeGroup')?.patchValue({ image: images[randomIdx] })
+  }
 }
