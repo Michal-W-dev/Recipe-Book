@@ -25,11 +25,11 @@ export class IngredientsService {
 
 
 
-  addIngredient(newIngredient: Ingredient) {
-    this.checkIngExistence(newIngredient)
+  addIngredient(newIngredient: Ingredient, ingredientList: Ingredient[]) {
+    this.checkIngExistence(newIngredient, ingredientList)
     this.alertService.showAlert(`${this.titleCase(newIngredient.name)} were added`, 'success')
     // Update ingredients in ingredients-list Component
-    this.ingsEmitter.next([...this.ingredients])
+    // this.ingsEmitter.next([...this.ingredients])
   }
 
   editIngredient(editedIngredient: Ingredient, idx: number) {
@@ -46,17 +46,17 @@ export class IngredientsService {
     this.ingredients[idx].amount = amount
   }
 
-  addIngredients(newIngredients: Ingredient[]) {
+  addIngredients(newIngredients: Ingredient[], ingredientList: Ingredient[]) {
     this.alertService.showAlert(`${newIngredients.map(el => ' ' + this.titleCase(el.name))} from recipe were added.`, 'success')
-    newIngredients.forEach(ingEl => this.checkIngExistence(ingEl))
-    this.getIngredients()
+    newIngredients.forEach(ingEl => this.checkIngExistence(ingEl, ingredientList))
+    // this.getIngredients()
   }
 
   // Functions helpers
   private titleCase(item: string) { return this.titleCasePipe.transform(item) }
 
-  private checkIngExistence({ name, amount }: Ingredient) {
-    let existItem = this.ingredients.find(el => {
+  private checkIngExistence({ name, amount }: Ingredient, currentIngredients: Ingredient[]) {
+    let existItem = currentIngredients.find(el => {
       if (name.toLocaleLowerCase() === el.name.toLocaleLowerCase()) { el.amount += amount; return true }
       else return false
     })

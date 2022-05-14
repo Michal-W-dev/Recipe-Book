@@ -1,7 +1,7 @@
 <app-ingredient-edit></app-ingredient-edit>
 <div class="ingredientsContainer">
-  <div *ngFor="let item of ingredients; let i = index;" (click)="editItem(i)">
-    <div [ngClass]="{selected: selectedIng === i}" class="ingredient">
+  <div *ngFor="let item of (ingredients$ | async); let i = index;" (click)="editItem(i)">
+    <div [ngClass]="{selected: (selectedIng$ | async) === i}" class="ingredient">
       <p> {{item.name | titlecase}} </p>
       <p> ({{item.amount}}) </p>
     </div>

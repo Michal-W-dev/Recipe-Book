@@ -107,5 +107,8 @@
       }
     }
   },
-  "defaultProject": "recipe"
+  "defaultProject": "recipe",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
