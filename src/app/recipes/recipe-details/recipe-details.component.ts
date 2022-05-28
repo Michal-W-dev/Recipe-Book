@@ -4,9 +4,11 @@ import { IngredientsService } from 'src/app/services/ingredients.service';
 import { RecipeService } from 'src/app/services/recipe.service';
 import { Ingredient } from 'src/app/models/ingredients';
 import { Recipe } from '../../models/recipe.model';
-import * as fromRoot from 'src/app/store/app.reducer';
+// import * as fromRoot from 'src/app/store/app.reducer';
 import { Store } from '@ngrx/store';
-import * as fromIngAction from 'src/app/ingredients/store/ingredients.actions';
+// import * as fromIngAction from 'src/app/ingredients/store/ingredients.actions';
+import { addMany } from 'src/app/state/ingredients/ingredient.actions';
+import { AppState } from 'src/app/state/store';
 
 @Component({
   selector: 'app-recipe-details',
@@ -20,7 +22,7 @@ export class RecipeDetailsComponent implements OnInit {
     private ingService: IngredientsService,
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<fromRoot.State>
+    private store: Store<AppState>
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +39,7 @@ export class RecipeDetailsComponent implements OnInit {
 
   addToShoppingList(ingredients: Ingredient[]) {
     this.router.navigate(['/shopping-list'])
-    // this.ingService.addIngredients(ingredients)
-    this.store.dispatch(fromIngAction.addMany({ ingredients }))
+    this.store.dispatch(addMany({ ingredients }))
+    this.ingService.addIngredientsAlert(ingredients)
   }
 }
