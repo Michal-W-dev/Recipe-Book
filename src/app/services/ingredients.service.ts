@@ -24,40 +24,36 @@ export class IngredientsService {
   }
 
 
-
-  addIngredient(newIngredient: Ingredient) {
-    this.checkIngExistence(newIngredient)
-    this.alertService.showAlert(`${this.titleCase(newIngredient.name)} were added`, 'success')
-    // Update ingredients in ingredients-list Component
-    this.ingsEmitter.next([...this.ingredients])
+  addIngredientAlert(ingredientName: string) {
+    this.alertService.showAlert(`${this.titleCase(ingredientName)} was added`, 'success')
+    // this.checkIngExistence(newIngredient, ingredientList)
+    // this.ingsEmitter.next([...this.ingredients])
   }
 
-  editIngredient(editedIngredient: Ingredient, idx: number) {
+  editIngredientAlert(editedIngredient: Ingredient, prevIngredient: Ingredient) {
     const { name, amount } = editedIngredient;
-    const { name: prevName, amount: prevAmount } = this.ingredients[idx];
-
-    if (this.ingredients[idx].name === name && this.ingredients[idx].amount === amount) {
+    const { name: prevName, amount: prevAmount } = prevIngredient;
+    if (name === prevName && amount === prevAmount) {
       this.alertService.showAlert(`No change was made`)
     } else {
       let msg = `${this.titleCase(prevName)} (${prevAmount}) was changed to - ${this.titleCase(name)} (${amount})`
       this.alertService.showAlert(msg, 'success')
     }
-    this.ingredients[idx].name = name
-    this.ingredients[idx].amount = amount
   }
 
-  addIngredients(newIngredients: Ingredient[]) {
+
+  addIngredientsAlert(newIngredients: Ingredient[]) {
     this.alertService.showAlert(`${newIngredients.map(el => ' ' + this.titleCase(el.name))} from recipe were added.`, 'success')
-    newIngredients.forEach(ingEl => this.checkIngExistence(ingEl))
-    this.getIngredients()
+    // newIngredients.forEach(ingEl => this.checkIngExistence(ingEl, ingredientList))
+    // this.getIngredients()
   }
 
   // Functions helpers
   private titleCase(item: string) { return this.titleCasePipe.transform(item) }
 
-  private checkIngExistence({ name, amount }: Ingredient) {
-    let existItem = this.ingredients.find(el => {
-      if (name.toLocaleLowerCase() === el.name.toLocaleLowerCase()) { el.amount += amount; return true }
+  private checkIngExistence({ name, amount }: Ingredient, currentIngredients: Ingredient[]) {
+    let existItem = currentIngredients.find(el => {
+      if (name.toLowerCase() === el.name.toLowerCase()) { el.amount += amount; return true }
       else return false
     })
     if (!existItem) this.ingredients.push({ name, amount })

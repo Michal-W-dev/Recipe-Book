@@ -1,19 +1,21 @@
-<div>
-  <h1>Recipe Book</h1>
-  <div class="linksWrapper">
-    <a *ngIf="isAuthenticated" routerLink="/recipes" routerLinkActive="active">Recipes</a>
-    <a routerLink="/shopping-list" routerLinkActive="active">Shopping list</a>
+<ng-container *ngIf="{isLogged: isAuth$ | async} as auth">
+  <div>
+    <h1>Recipe Book</h1>
+    <div class="linksWrapper">
+      <a *ngIf="auth.isLogged" routerLink="/recipes" routerLinkActive="active">Recipes</a>
+      <a routerLink="/shopping-list" routerLinkActive="active">Shopping list</a>
+    </div>
   </div>
-</div>
-<div class="rightLinksContainer">
-  <ng-container *ngIf="isAuthenticated">
-    <a *ngIf="recipeService.recipes.length" (click)='onSaveData()'>SAVE recipes</a>
-    <a (click)='onFetchData()'>FETCH recipes</a>
-  </ng-container>
-  <a *ngIf="!isAuthenticated" routerLink="/auth" routerLinkActive="active">
-    <span class="material-icons" style="margin-right: 10px;">support_agent</span> LOGIN
-  </a>
-  <a *ngIf="isAuthenticated" (click)='onLogout()'>
-    <span class="material-icons" style="margin-right: 10px;">logout</span> LOGOUT
-  </a>
-</div>
+  <div class="rightLinksContainer">
+    <ng-container *ngIf="auth.isLogged">
+      <a *ngIf="recipeService.recipes.length" (click)='onSaveData()'>SAVE recipes</a>
+      <a (click)='onFetchData()'>FETCH recipes</a>
+    </ng-container>
+    <a *ngIf="!auth.isLogged" routerLink="/auth" routerLinkActive="active">
+      <span class="material-icons" style="margin-right: 10px;">support_agent</span> LOGIN
+    </a>
+    <a *ngIf="auth.isLogged" (click)='onLogout()'>
+      <span class="material-icons" style="margin-right: 10px;">logout</span> LOGOUT
+    </a>
+  </div>
+</ng-container>

@@ -7,6 +7,8 @@ import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { SharedModule } from '../shared/shared.module';
+// import { EffectsModule } from '@ngrx/effects';
+// import { RecipesEffects } from './store/recipes.effects';
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     SharedModule,
     RecipesRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // EffectsModule.forFeature([RecipesEffects])
   ],
 })
 export class RecipesModule { }

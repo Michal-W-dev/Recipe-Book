@@ -1,37 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { Ingredient } from 'src/app/models/ingredients';
-import { IngredientsService } from '../../services/ingredients.service';
+import * as fromIngReducer from 'src/app/state/ingredients/ingredient.reducer';
+import * as fromIngActions from 'src/app/state/ingredients/ingredient.actions';
+import { AppState } from 'src/app/state/store';
+
 
 @Component({
   selector: 'app-ingredients-list',
   templateUrl: './ingredients-list.component.html',
-  styleUrls: ['./ingredients-list.component.scss']
+  styleUrls: ['./ingredients-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IngredientsListComponent implements OnInit {
-  ingredients: Ingredient[]
-  newIngredients: Ingredient[]
-  private ingSub: Subscription;
-  private selSub: Subscription;
-  selectedIng = -1;
+export class IngredientsListComponent {
+  ingredients$: Observable<Ingredient[]>
+  selectedIng$: Observable<number | null>
 
-  constructor(private ingService: IngredientsService) {
-  }
-
-  ngOnInit(): void {
-    this.ingSub = this.ingService.ingsEmitter.subscribe(ingredients => this.ingredients = ingredients)
-    this.ingService.getIngredients()
-    this.newIngredients = this.ingService.newIngredients
-    this.selSub = this.ingService.selectedIng.subscribe(selectedIng => this.selectedIng = selectedIng)
-  }
-  ngOnDestroy() {
-    this.ingSub.unsubscribe()
-    this.selSub.unsubscribe()
+  constructor(private store: Store<AppState>) {
+    this.ingredients$ = this.store.select(fromIngReducer.selectAllIngredients)
+    this.selectedIng$ = this.store.select(fromIngReducer.selectId)
   }
 
   editItem(idx: number) {
-    this.ingService.selectedIng.next(idx)
-    this.selectedIng = idx;
+    this.store.dispatch(fromIngActions.selectIng({ id: idx }))
   }
 
 }

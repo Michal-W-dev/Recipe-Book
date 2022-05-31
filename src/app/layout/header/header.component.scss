@@ -26,7 +26,11 @@ $height: 6rem;
   h1 {
     display: flex;
     align-items: center;
+    color: transparent;
+    text-shadow: 1px 1px 1px rgb(255, 255, 255), 0px 0px rgb(59, 59, 59);
   }
+
+
   &>div {
     display: flex;
   }

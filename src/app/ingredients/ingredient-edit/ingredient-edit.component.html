@@ -1,8 +1,9 @@
 <form (submit)="onSubmit(f)" #f="ngForm">
   <div class="inputsContainer">
-    <input [ngModel]="ingredient?.name" name="name" placeholder="Enter name" required autocomplete="off" autofocus>
-    <input [ngModel]="ingredient?.amount" name="amount" placeholder="Enter amount" required pattern="^[1-9]+[0-9]*$"
-      autocomplete="off">
+    <input [ngModel]="(ingredient$ | async)?.name" name="name" placeholder="Enter name" required autocomplete="off"
+      autofocus>
+    <input [ngModel]="(ingredient$ | async)?.amount" name="amount" placeholder="Enter amount" required
+      pattern="^[1-9]+[0-9]*$" autocomplete="off">
   </div>
   <div class="btnsContainer">
     <button type="submit" [disabled]="f.invalid">{{edit ? 'Edit' : 'Add'}} ingredient</button>
