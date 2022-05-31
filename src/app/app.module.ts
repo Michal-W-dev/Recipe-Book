@@ -8,16 +8,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
 import { StoreModule } from '@ngrx/store';
-// import { ingredientsReducer } from './ingredients/store/ingredients.reducer';
-// import { reducers } from './store/app.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { reducers } from './state/store';
-// import { appReducer } from './store/app.reducer';
-
-// const rootReducer = {
-//   ings: ingredientsReducer
-// }
+import { AuthEffects } from './state/auth/auth.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -31,12 +26,11 @@ import { reducers } from './state/store';
     AppRoutingModule,
     SharedModule,
     CoreModule,
-    // StoreModule.forRoot(rootReducer),
+    // StoreModule.forFeature(reducers)
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-
-    // StoreModule.forRoot({ ings: ingredientsReducer }),
-    // StoreModule.forFeature(reducers)
+    EffectsModule.forRoot([]),
+    EffectsModule.forFeature([AuthEffects]),
   ],
   bootstrap: [AppComponent]
 })

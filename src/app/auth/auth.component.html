@@ -3,7 +3,7 @@
     <h1>{{isLogin ? 'Login' : 'Register'}}</h1>
 
     <div class="empty-space">
-      <app-loader *ngIf="isLoading"></app-loader>
+      <app-loader *ngIf="isLoading$ | async"></app-loader>
     </div>
 
     <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
@@ -19,7 +19,7 @@
       </div>
 
       <div class="errorsPlaceholder">
-        <div *ngIf="(!error && authForm.valid) else errors"></div>
+        <div *ngIf="(!(error$ | async) && authForm.valid) else errors"></div>
       </div>
 
       <div class="btns">
@@ -30,7 +30,8 @@
           Switch to {{ isLogin ? 'Sign Up' : 'Login' }}
         </button>
         <div class="guestLogin">
-          <button type="button" (click)="onSubmit('login-guest')" [disabled]="isLoading">Login as a Guest</button>
+          <button type="button" (click)="onSubmit('login-guest')" [disabled]="isLoading$ | async">Login as a
+            Guest</button>
         </div>
       </div>
     </form>
@@ -40,13 +41,15 @@
 
 <!-- Handle errors -->
 <ng-template #errors>
-  <p *ngIf="error">{{error}}</p>
-  <ng-container *ngIf="email.touched">
-    <p *ngIf="email.hasError('required')">Email is required</p>
-    <p *ngIf="email.hasError('email')">Please enter valid email</p>
-  </ng-container>
-  <ng-container *ngIf="password.touched">
-    <p *ngIf="password.hasError('required')">Password is required</p>
-    <p *ngIf="password.hasError('minlength')">{{errorMinLength(password)}}</p>
+  <ng-container *ngIf="{value: error$ | async} as error">
+    <p *ngIf="error.value">{{error.value}}</p>
+    <ng-container *ngIf="email.touched && !error.value">
+      <p *ngIf="email.hasError('required')">Email is required</p>
+      <p *ngIf="email.hasError('email')">Please enter valid email</p>
+    </ng-container>
+    <ng-container *ngIf="password.touched && !error.value">
+      <p *ngIf="password.hasError('required')">Password is required</p>
+      <p *ngIf="password.hasError('minlength')">{{errorMinLength(password)}}</p>
+    </ng-container>
   </ng-container>
 </ng-template>
