@@ -32,3 +32,7 @@ const selectAuthReducer = (state: AppState) => state.auth;
 export const selectUser = createSelector(selectAuthReducer, state => state.user)
 export const selectToken = createSelector(selectUser, user => user?.token)
 export const selectIsLogged = createSelector(selectUser, user => !!user?.token)
+export const selectUserName = createSelector(selectUser, user => user && titleCase(user?.email.split('@')[0]))
+
+
+export const titleCase = (string: string) => string.charAt(0).toUpperCase() + string.slice(1)

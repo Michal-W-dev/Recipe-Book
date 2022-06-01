@@ -2,18 +2,19 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IAuthResponse } from '../models/auth.model';
 import { environment } from 'src/environments/environment'
-import { BehaviorSubject, catchError, throwError } from 'rxjs';
+import { catchError, firstValueFrom, map, take, throwError } from 'rxjs';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { AlertService } from './alert.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../state/store';
 import * as AuthActions from '../state/auth/auth.actions';
+import { selectUserName } from '../state/auth/auth.reducer';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private tokenExpTimer: ReturnType<typeof setTimeout> | null;
-  user = new BehaviorSubject<User | null>(null);
+  // user = new BehaviorSubject<User | null>(null);
 
   constructor(private http: HttpClient, private router: Router, private alert: AlertService, private store: Store<AppState>) { }
 
@@ -44,15 +45,15 @@ export class AuthService {
     }
   }
 
-  logout() {
-    const name = this.user.value?.email.split('@')[0];
+  async logout() {
+    // Goodbye message
+    this.store.select(selectUserName).pipe(take(1)).subscribe(name => this.alert.showAlert(`Goodbye ${name} !`, 'success'))
+    // Logout
     this.store.dispatch(AuthActions.logout())
-    // this.user.next(null);
     this.router.navigateByUrl('/auth');
     localStorage.removeItem('userData')
     if (this.tokenExpTimer) clearTimeout(this.tokenExpTimer);
     this.tokenExpTimer = null;
-    this.alert.showAlert(`Goodbye ${name} !`, 'success');
   }
 
   autoLogout(expirationSeconds: number) {

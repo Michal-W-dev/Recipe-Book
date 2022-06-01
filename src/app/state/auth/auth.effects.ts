@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user.model';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppState } from '../store';
+import { titleCase } from './auth.reducer'
 import * as AuthActions from './auth.actions';
 
 
@@ -30,7 +31,7 @@ export class AuthEffects {
         //Handle loadAuth success (error catched in authService)
         this.handleAuthentication(res.email, res.localId, res.idToken, +res.expiresIn)
         this.router.navigateByUrl('/recipes')
-        const name = email.split('@')[0]
+        const name = titleCase(email.split('@')[0])
         this.alert.showAlert(`Welcome ${name} !`, 'success')
         return AuthActions.loadAuthsSuccess()
       }),
